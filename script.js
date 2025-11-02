@@ -242,10 +242,10 @@ function getRank(netWorth) {
         glow = "0 0 20px #F1C40F";
         specialClass = "rank-glow rank-gradient"; // Apply glow + gradient animation
     
-        // --- ⭐ Star scaling every +10 million beyond 20M ---
-        const extraStars = Math.floor((netWorth - 20_000_000) / 10_000_000);
-        if (extraStars > 0) {
-            rank += " " + "⭐".repeat(extraStars);
+        // --- ⭐ Add numbered stars every 10 million beyond 20M ---
+        const extraLevel = Math.floor((netWorth - 20_000_000) / 10_000_000);
+        if (extraLevel > 0) {
+            rank += ` ${extraLevel}⭐`;
         }
     }
 
@@ -486,4 +486,5 @@ function sellStock(percent) {
 initChart();
 SecureSim.subscribe(handleView);
 SecureSim.init();
+
 
