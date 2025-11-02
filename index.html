@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <link
+            rel="icon"
+            href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📈</text></svg>"
+        />
+        <link rel="stylesheet" href="styles.css" />
+        <title>ST Simulator</title>
+    </head>
+
+    <body
+        class="bg-gray-950 text-gray-100 font-sans min-h-screen flex flex-col items-center justify-center p-6"
+    >
+        <div id="notificationContainer"></div>
+        <div
+            class="max-w-4xl w-full bg-gray-900 rounded-2xl shadow-lg p-6 border border-gray-700"
+        >
+            <h1 class="text-3xl font-bold text-center mb-6 text-cyan-400">
+                Secure Stock Trading Simulator
+            </h1>
+
+            <!-- Stats Row -->
+            <div class="grid grid-cols-3 gap-4 text-center">
+                <div class="bg-gray-800 p-4 rounded-lg">
+                    <p class="text-gray-400">Balance</p>
+                    <p class="text-xl font-semibold text-green-400">
+                        $<span id="balance">0</span>
+                    </p>
+                </div>
+                <div class="bg-gray-800 p-4 rounded-lg">
+                    <p class="text-gray-400">
+                        Shares (<span id="tickerLabel">LUX</span>)
+                    </p>
+                    <p class="text-xl font-semibold text-yellow-400">
+                        <span id="shares">0</span>
+                    </p>
+                </div>
+                <div class="bg-gray-800 p-4 rounded-lg">
+                    <p class="text-gray-400">Current Price</p>
+                    <p class="text-xl font-semibold text-blue-400">
+                        $<span id="price">0</span>
+                    </p>
+                </div>
+            </div>
+            <div class="text-center bg-gray-800 p-4 rounded-lg mt-4 mb-4">
+                <p class="text-gray-400 text-xl font-semibold tracking-wide">
+                    Net Worth: <span class="text-green-600">$</span
+                    ><span id="networth" class="text-green-600">0</span>
+                </p>
+                <p class="text-gray-400 text-xl font-semibold tracking-wide">
+                    Rank: <span id="rank">Rookie Investor</span>
+                </p>
+            </div>
+
+            <!-- Controls -->
+            <div
+                class="font-semibold flex flex-wrap justify-center w-1/2 gap-3 m-auto mb-6"
+            >
+                <button
+                    class="px-4 py-2 bg-cyan-600 hover:bg-cyan-500 rounded-lg"
+                    onclick="buyStock(25)"
+                >
+                    Buy 25%
+                </button>
+                <button
+                    class="px-4 py-2 bg-cyan-600 hover:bg-cyan-500 rounded-lg"
+                    onclick="buyStock(50)"
+                >
+                    Buy 50%
+                </button>
+                <button
+                    class="px-4 py-2 bg-cyan-600 hover:bg-cyan-500 rounded-lg"
+                    onclick="buyStock(75)"
+                >
+                    Buy 75%
+                </button>
+                <button
+                    class="px-4 py-2 bg-cyan-600 hover:bg-cyan-500 rounded-lg"
+                    onclick="buyStock(100)"
+                >
+                    Buy 100%
+                </button>
+                <button
+                    class="px-4 py-2 bg-red-600 hover:bg-red-500 rounded-lg"
+                    onclick="sellStock(25)"
+                >
+                    Sell 25%
+                </button>
+                <button
+                    class="px-4 py-2 bg-red-600 hover:bg-red-500 rounded-lg"
+                    onclick="sellStock(50)"
+                >
+                    Sell 50%
+                </button>
+                <button
+                    class="px-4 py-2 bg-red-600 hover:bg-red-500 rounded-lg"
+                    onclick="sellStock(75)"
+                >
+                    Sell 75%
+                </button>
+                <button
+                    class="px-4 py-2 bg-red-600 hover:bg-red-500 rounded-lg"
+                    onclick="sellStock(100)"
+                >
+                    Sell 100%
+                </button>
+            </div>
+
+            <!-- Tickers -->
+            <div class="flex justify-center gap-4 mb-6">
+                <button
+                    class="ticker-btn px-4 py-2 bg-gray-800 hover:bg-gray-700 rounded-lg"
+                    data-ticker="FIZZ"
+                    onclick="selectTicker('FIZZ')"
+                >
+                    FIZZ
+                </button>
+                <button
+                    class="ticker-btn px-4 py-2 bg-gray-800 hover:bg-gray-700 rounded-lg"
+                    data-ticker="LUX"
+                    onclick="selectTicker('LUX')"
+                >
+                    LUX
+                </button>
+                <button
+                    class="ticker-btn px-4 py-2 bg-gray-800 hover:bg-gray-700 rounded-lg"
+                    data-ticker="NOVA"
+                    onclick="selectTicker('NOVA')"
+                >
+                    NOVA
+                </button>
+                <button
+                    class="ticker-btn px-4 py-2 bg-gray-800 hover:bg-gray-700 rounded-lg"
+                    data-ticker="ALL"
+                    onclick="showAllTickers()"
+                >
+                    Price Comparison
+                </button>
+            </div>
+
+            <!-- Chart -->
+            <div id="chartContainer">
+                <canvas id="stockChart"></canvas>
+            </div>
+
+            <p class="text-center text-gray-500 mt-6 text-sm">
+                Prices update every 3 seconds • Simulated market data
+            </p>
+        </div>
+        <script src="backend.js"></script>
+        <script src="script.js"></script>
+    </body>
+</html>
